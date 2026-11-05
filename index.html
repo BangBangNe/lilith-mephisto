@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lilith × Mephisto</title>
+<meta name="description" content="Lilith Ravenna × Mephisto — một yumeship giữa bầu trời sao và những cánh bướm xanh.">
+<meta property="og:title" content="Lilith × Mephisto">
+<meta property="og:description" content="Ái nữ nhà Ravenna và kẻ luôn tìm cách trở thành mảnh ghép không thể thiếu của em.">
+<meta property="og:image" content="assets/img/og-cover.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ SVG SPRITES ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="bfly" viewBox="0 0 64 48">
+    <path d="M32 24 C24 4 6 0 3 8 C0 16 12 24 30 25 C14 28 6 38 12 44 C18 48 28 38 32 27 C36 38 46 48 52 44 C58 38 50 28 34 25 C52 24 64 16 61 8 C58 0 40 4 32 24Z"/>
+    <path d="M31 14 Q32 10 33 14 L33 34 Q32 37 31 34Z" opacity=".6"/>
+  </symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0 L13.6 10.4 L24 12 L13.6 13.6 L12 24 L10.4 13.6 L0 12 L10.4 10.4Z"/></symbol>
+</svg>
+
+<!-- ============ PRELOADER ============ -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <svg class="loader__bfly"><use href="#bfly"/></svg>
+    <div class="loader__word" aria-label="Ravenna">
+      <span>R</span><span>A</span><span>V</span><span>E</span><span>N</span><span>N</span><span>A</span>
+    </div>
+    <div class="loader__bar"><i></i></div>
+    <div class="loader__num"><span id="loaderNum">0</span>%</div>
+  </div>
+</div>
+
+<!-- ============ OVERLAYS ============ -->
+<canvas id="stars" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><div class="cursor__dot"></div><div class="cursor__ring"><span class="cursor__label"></span></div></div>
+<div class="bflies" id="bflies" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#hero" class="nav__logo" data-scroll>L<span>×</span>M</a>
+  <nav class="nav__links">
+    <a href="#prologue" data-scroll>Mở đầu</a>
+    <a href="#characters" data-scroll>Nhân vật</a>
+    <a href="#ability" data-scroll>Huyễn Tâm</a>
+    <a href="#bond" data-scroll>Hai góc nhìn</a>
+    <a href="#story" data-scroll>Cốt truyện</a>
+    <a href="#gallery" data-scroll>Gallery</a>
+  </nav>
+  <button class="nav__sound" id="soundBtn" hidden aria-label="Bật/tắt nhạc"><i></i><i></i><i></i><i></i></button>
+  <div class="nav__progress"><i id="progress"></i></div>
+</header>
+
+<main id="smooth">
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="hero__bg art" data-art="assets/img/hero-key"
+       data-title="Key visual chính"
+       data-desc="Lilith & Mephisto lưng kề lưng giữa trời sao xanh thẫm, bướm xanh bay quanh, sừng cài ruy băng. Tranh ngang 16:9, nên chừa khoảng trống giữa cho chữ."
+       data-bg></div>
+  <div class="hero__veil"></div>
+
+  <div class="hero__content">
+    <p class="hero__kicker reveal-up">✦ a yumeship archive ✦</p>
+    <h1 class="hero__title">
+      <span class="hero__name hero__name--l split-chars">Lilith</span>
+      <span class="hero__x">×</span>
+      <span class="hero__name hero__name--m split-chars">Mephisto</span>
+    </h1>
+    <p class="hero__sub reveal-up">Ái nữ nhà Ravenna, và kẻ cả đời chỉ muốn trở thành <em>mảnh ghép không thể thiếu</em> của em.</p>
+    <a href="#prologue" class="btn magnetic" data-scroll data-cursor="Vào"><span>Bước vào câu chuyện</span></a>
+  </div>
+
+  <div class="hero__figure hero__figure--l parallax" data-speed="-0.15">
+    <div class="art art--float art--contain" data-art="assets/img/lilith-cut" data-title="Lilith" data-desc="Full body Lilith"></div>
+  </div>
+
+  <div class="hero__scroll"><span>scroll</span><i></i></div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Lilith Ravenna</span><svg><use href="#spark"/></svg><span>Mephisto</span><svg><use href="#spark"/></svg><span>Huyễn Tâm</span><svg><use href="#spark"/></svg><span>Illusory Mind</span><svg><use href="#spark"/></svg><span>Safezone</span><svg><use href="#spark"/></svg>
+    <span>Lilith Ravenna</span><svg><use href="#spark"/></svg><span>Mephisto</span><svg><use href="#spark"/></svg><span>Huyễn Tâm</span><svg><use href="#spark"/></svg><span>Illusory Mind</span><svg><use href="#spark"/></svg><span>Safezone</span><svg><use href="#spark"/></svg>
+  </div>
+</div>
+
+<!-- ============ PROLOGUE ============ -->
+<section class="prologue" id="prologue">
+  <div class="prologue__pin">
+    <p class="eyebrow">Chương 0 — Mở đầu</p>
+    <p class="prologue__text split-words">
+      Em là một kẻ mang nhiều mặt nạ. Trong mắt người ngoài, em xa cách, kiêu sa và khó với tới.
+      Nhưng sau lớp mặt nạ ấy là một cô gái hiền lành, hơi vô tri, hơi bướng bỉnh — và nhạy cảm đến mức đọc được cả những điều người khác chưa kịp nói.
+      Chỉ có hai người được bước vào vùng an toàn của em. Một là anh trai. Người còn lại… đã đứng ngay cạnh hàng rào nhà em từ khi cả hai còn bé.
+    </p>
+  </div>
+</section>
+
+<!-- ============ CHARACTERS ============ -->
+<section class="chars" id="characters">
+  <header class="sec-head">
+    <p class="eyebrow">Hồ sơ</p>
+    <h2 class="sec-title split-chars">Characters</h2>
+  </header>
+
+  <!-- LILITH -->
+  <article class="char char--lilith">
+    <div class="char__visual">
+      <div class="char__frame tilt">
+        <div class="art art--contain" data-art="assets/img/lilith-cut" data-title="Lilith — full body" data-desc="Full body chính thức của Lilith (dọc 2:3)."></div>
+        <span class="char__glow"></span>
+      </div>
+      <p class="char__vname">LILITH</p>
+    </div>
+
+    <div class="char__info">
+      <p class="eyebrow">Ái nữ nhà Ravenna · em út</p>
+      <h3 class="char__name">Lilith <span>Ravenna</span></h3>
+
+      <dl class="stats">
+        <div><dt>Giới tính</dt><dd>Nữ</dd></div>
+        <div><dt>Chiều cao</dt><dd>1m66</dd></div>
+        <div><dt>Rank</dt><dd>Chet <small>(ח)</small></dd></div>
+        <div><dt>MBTI</dt><dd>INFJ</dd></div>
+        <div><dt>Gia đình</dt><dd>Anh trai Azel — người thân ruột thịt còn sót lại</dd></div>
+        <div><dt>Công việc</dt><dd>Ăn không ngồi rồi · đang nhận dạy hợp đồng cho Babyls mảng tâm lý thực chiến</dd></div>
+      </dl>
+
+      <div class="tabs" data-tabs>
+        <div class="tabs__nav" role="tablist">
+          <button role="tab" aria-selected="true">Tính cách</button>
+          <button role="tab">Sở thích</button>
+          <button role="tab">Đối xử</button>
+        </div>
+        <div class="tabs__panels">
+          <div class="tabs__panel is-active" role="tabpanel">
+            <p>Em có thể trở thành bất kỳ phiên bản nào em muốn. Người ngoài thấy em khó gần, sang và khó với tới; thực chất em khá hiền, đôi khi hơi vô tri và bướng bỉnh, và có một khía cạnh mềm yếu ít ai biết.</p>
+            <p>Em rất nhạy cảm với cảm xúc và tâm lý người xung quanh, có xu hướng phân tích họ và nghĩ quá nhiều. Trong công việc em cực kỳ khó tính — có thể dành hàng ngàn giờ soi lại từng việc được giao, chỉ vì muốn người khác có thể dựa vào mình khi cần.</p>
+            <p class="quote-line">“Dễ gần, nhưng không dễ thân.”</p>
+          </div>
+          <div class="tabs__panel" role="tabpanel">
+            <h4>Thói quen</h4>
+            <ul class="chips">
+              <li>Thư giãn trong vườn hoa lồng kính</li><li>Ngắm côn trùng</li><li>Đọc về tâm lý ác ma</li><li>Viết lách khi chán</li><li>Skinship với anh trai & Mephisto</li>
+            </ul>
+            <h4>Sở thích</h4>
+            <ul class="chips">
+              <li>ÔM</li><li>Chơi / ngắm tuyết</li><li>Sưu tầm nước hoa</li><li>Phân tích tâm lý ác ma</li><li>Thú cưng trong vườn riêng</li>
+            </ul>
+            <h4>Ghét</h4>
+            <ul class="chips chips--hate">
+              <li>Bẩn</li><li>Người đọc được vị mình dù không thân</li><li>Ai bước quá ranh giới em đã đặt</li>
+            </ul>
+          </div>
+          <div class="tabs__panel" role="tabpanel">
+            <div class="treat">
+              <div class="treat__row"><b>Safezone</b><span>Azel & Mephisto</span><p>Thoải mái, đôi khi trẻ con. Với em, họ là tất cả.</p></div>
+              <div class="treat__row"><b>Bạn bè / người quen</b><span>ngoài lạnh trong nóng</span><p>Trông khép kín, đôi khi hơi khó tính, nhưng rất tinh tế.</p></div>
+              <div class="treat__row treat__row--danger"><b>Người lạ</b><span>⚠</span><p>CHỚ LẠI GẦN BỐ MÀY.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- MEPHISTO -->
+  <article class="char char--meph">
+    <div class="char__visual">
+      <div class="char__frame tilt">
+        <div class="art" data-art="assets/img/mephisto-full" data-title="Mephisto — full body" data-desc="Full body Mephisto (dọc 2:3)."></div>
+        <span class="char__glow"></span>
+      </div>
+      <p class="char__vname">MEPHISTO</p>
+    </div>
+
+    <div class="char__info">
+      <p class="eyebrow">Hàng xóm · bạn thân chí cốt của Azel · anh trai kết nghĩa</p>
+      <h3 class="char__name">Mephisto</h3>
+
+      <!-- ✎ Điền thêm thông tin Mephisto vào các ô có class "todo" -->
+      <dl class="stats">
+        <div><dt>Quan hệ</dt><dd>Hàng xóm từ thuở bé</dd></div>
+        <div><dt>Với Azel</dt><dd>Bạn thân chí cốt</dd></div>
+        <div><dt>Với Lilith</dt><dd>Anh trai kết nghĩa… tạm thời</dd></div>
+        <div><dt>Love language</dt><dd>Gesture · Words</dd></div>
+        <div class="todo"><dt>Rank</dt><dd>— điền sau —</dd></div>
+        <div class="todo"><dt>Năng lực</dt><dd>— điền sau —</dd></div>
+      </dl>
+
+      <div class="meph-note">
+        <p>Từ bé đã thích em, nhưng vì còn nhỏ nên chỉ nghĩ đó là yêu quý, là tình anh em. Lớn dần lên mới nhận ra mình thích em thật.</p>
+        <p>Và từ đó, anh lặng lẽ len lỏi vào cuộc sống của em — luôn cố gắng chen vào, để trở thành <em>một mảnh ghép không thể thiếu</em>.</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- SUPPORTING -->
+  <div class="support">
+    <p class="eyebrow">Nhân vật phụ</p>
+    <div class="support__grid">
+      <article class="mini-card tilt">
+        <div class="art" data-art="assets/img/azel" data-title="Azel" data-desc="Chân dung Azel — anh trai siscon của Lilith. Tranh vuông hoặc dọc."></div>
+        <div class="mini-card__body">
+          <h4>Azel Ravenna</h4>
+          <p>Anh trai của Lilith, người thân ruột thịt còn sót lại. Siscon chính hiệu. Bạn thân chí cốt của Mephisto — và có lẽ là “boss cuối” mà anh phải vượt qua.</p>
+        </div>
+      </article>
+      <article class="mini-card mini-card--empty tilt">
+        <div class="art" data-art="assets/img/pets" data-title="Thú cưng trong vườn" data-desc="Lilith chơi với đám thú cưng trong khu vườn kính riêng."></div>
+        <div class="mini-card__body">
+          <h4>Khu vườn kính</h4>
+          <p>Nơi Lilith nuôi thú cưng, ngắm côn trùng và trốn khỏi thế giới. Chỉ người trong safezone mới được vào.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABILITY ============ -->
+<section class="ability" id="ability">
+  <div class="ability__art art" data-art="assets/img/ability-illusion" data-bg
+       data-title="Huyễn Tâm"
+       data-desc="Lilith kích hoạt Huyễn Tâm: không gian méo mó như gương vỡ, mắt chữ thập phát sáng xanh, bướm tan thành ảo ảnh. Tranh ngang."></div>
+  <div class="ability__veil"></div>
+
+  <div class="ability__inner">
+    <p class="eyebrow">Bloodline ability</p>
+    <h2 class="ability__title glitch" data-text="Huyễn Tâm">Huyễn Tâm</h2>
+    <p class="ability__en scramble" data-scramble="ILLUSORY · MIND">ILLUSORY · MIND</p>
+
+    <p class="ability__desc">Đánh mạnh về tâm lý. Bóp méo nhận thức của mục tiêu, thao túng giác quan dựa trên điểm yếu của chúng — ghét tiếng ồn? Âm thanh sẽ trở thành vũ khí. Chạm đến cả cảm xúc và ký ức ngắn hạn, cấy vào đó những <em>ký ức giả</em>.</p>
+
+    <div class="ability__steps">
+      <div class="astep"><span>01</span><b>Nhiễu loạn</b><p>Giác quan bị bẻ cong theo đúng điểm yếu.</p></div>
+      <div class="astep"><span>02</span><b>Mất phương hướng</b><p>Không còn phân biệt được thật và giả.</p></div>
+      <div class="astep"><span>03</span><b>Sụp đổ phán đoán</b><p>Giữa thực chiến, đối thủ tự đánh mất mình.</p></div>
+    </div>
+
+    <div class="illusion">
+      <p class="illusion__q">Thử xem — bạn có phân biệt được không? <small>(bấm vào thẻ)</small></p>
+      <div class="illusion__cards">
+        <button class="icard" data-truth="real"><span class="icard__f">“Lilith ghét người lạ lại gần.”</span><span class="icard__b">THẬT</span></button>
+        <button class="icard" data-truth="fake"><span class="icard__f">“Lilith ghét tuyết.”</span><span class="icard__b">ẢO GIÁC<small>em thích tuyết lắm đó</small></span></button>
+        <button class="icard" data-truth="real"><span class="icard__f">“Lilith thích được ôm.”</span><span class="icard__b">THẬT</span></button>
+        <button class="icard" data-truth="fake"><span class="icard__f">“Mephisto chỉ coi em là em gái.”</span><span class="icard__b">KÝ ỨC GIẢ<small>ai tin thì người đó bị lừa</small></span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOND / POV ============ -->
+<section class="bond" id="bond">
+  <header class="sec-head">
+    <p class="eyebrow">Mephisto & Lilith</p>
+    <h2 class="sec-title split-chars">Two Hearts</h2>
+  </header>
+
+  <ul class="tropes">
+    <li>Hàng xóm</li><li>Bạn thân chí cốt của anh trai siscon</li><li>Anh trai kết nghĩa</li><li>Childhood → lovers</li><li>Slow burn</li>
+  </ul>
+
+  <div class="pov">
+    <div class="pov__side pov__side--l">
+      <div class="art" data-art="assets/img/pov-lilith" data-title="POV Lilith" data-desc="Lilith ngước nhìn lên, ánh mắt tin cậy, ngây ngô. Bán thân, dọc."></div>
+      <div class="pov__text">
+        <p class="eyebrow">Trong mắt Lilith</p>
+        <p class="pov__big">“Anh là người thân thứ hai, chỉ sau anh trai.”</p>
+        <p>Một tiền bối đáng ngưỡng mộ, một người để dựa dẫm. Em chưa từng nghĩ xa hơn — hoặc là chưa dám.</p>
+      </div>
+    </div>
+    <div class="pov__divider"><svg><use href="#bfly"/></svg></div>
+    <div class="pov__side pov__side--r">
+      <div class="art" data-art="assets/img/pov-mephisto" data-title="POV Mephisto" data-desc="Mephisto nhìn xuống, nụ cười nhẹ, ánh mắt chiếm hữu nhưng dịu dàng. Bán thân, dọc."></div>
+      <div class="pov__text">
+        <p class="eyebrow">Trong mắt Mephisto</p>
+        <p class="pov__big">“Từ bé đã thích em.”</p>
+        <p>Ngày đó tưởng chỉ là yêu quý. Đến khi nhận ra thì đã quá muộn để buông — nên anh chọn cách len vào cuộc sống của em, từng chút một.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="love">
+    <p class="eyebrow">Main love language</p>
+    <div class="love__row">
+      <div class="love__item magnetic" data-cursor="♥"><b>Gesture</b><span>Những cử chỉ nhỏ: xoa đầu, choàng áo, ôm.</span></div>
+      <div class="love__amp">&amp;</div>
+      <div class="love__item magnetic" data-cursor="♥"><b>Words</b><span>Những lời nói chỉ dành riêng cho nhau.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY (horizontal) ============ -->
+<section class="story" id="story">
+  <div class="story__pin">
+    <header class="story__head">
+      <p class="eyebrow">Flow cốt truyện</p>
+      <h2 class="sec-title">The Story</h2>
+      <p class="story__hint">kéo xuống để lật trang →</p>
+    </header>
+    <div class="story__track">
+      <!-- ✎ Mỗi .chapter là 1 chương. Sửa text, đổi tranh bằng cách thả file đúng tên vào assets/img -->
+      <article class="chapter">
+        <span class="chapter__no">I</span>
+        <div class="art" data-art="assets/img/ch1-neighbors" data-title="Ch.I — Hàng xóm" data-desc="Hai căn dinh thự cạnh nhau. Lilith bé xíu nấp sau Azel, nhìn qua hàng rào hoa thấy một cậu bé có sừng."></div>
+        <h3>Hàng rào hoa</h3>
+        <p>Hai gia đình ác ma sống cạnh nhau. Một cô bé nấp sau lưng anh trai, lần đầu nhìn thấy cậu bé nhà bên.</p>
+      </article>
+      <article class="chapter">
+        <span class="chapter__no">II</span>
+        <div class="art" data-art="assets/img/ch2-azel" data-title="Ch.II — Bạn thân của anh trai" data-desc="Azel và Mephisto nhỏ quàng vai nhau cười, Lilith bám vạt áo anh trai."></div>
+        <h3>Bạn thân của anh trai</h3>
+        <p>Mephisto trở thành bạn thân chí cốt của Azel — và vì thế, ngày nào cũng có mặt bên cạnh em.</p>
+      </article>
+      <article class="chapter">
+        <span class="chapter__no">III</span>
+        <div class="art" data-art="assets/img/ch3-sworn" data-title="Ch.III — Anh trai kết nghĩa" data-desc="Mephisto cúi xuống xoa đầu Lilith; em ngẩng lên cười. Màu ấm, hoài niệm."></div>
+        <h3>Anh trai kết nghĩa</h3>
+        <p>“Từ giờ anh cũng là anh trai của em.” Một lời hứa ngây thơ mà về sau anh hối hận nhất.</p>
+      </article>
+      <article class="chapter">
+        <span class="chapter__no">IV</span>
+        <div class="art" data-art="assets/img/ch4-realize" data-title="Ch.IV — Nhận ra" data-desc="Mephisto đã lớn, đứng ngoài vườn kính nhìn Lilith ngủ quên giữa hoa. Ánh trăng xanh."></div>
+        <h3>Nhận ra</h3>
+        <p>Đến một ngày, anh nhận ra thứ tình cảm ấy chưa bao giờ là tình anh em.</p>
+      </article>
+      <article class="chapter">
+        <span class="chapter__no">V</span>
+        <div class="art" data-art="assets/img/ch5-teatime" data-title="Ch.V — Tea time" data-desc="Tiệc trà trong vườn."></div>
+        <h3>Mảnh ghép</h3>
+        <p>Những buổi trà chiều, những lần ghé qua “tình cờ”. Anh len lỏi vào từng ngóc ngách cuộc sống của em.</p>
+      </article>
+      <article class="chapter">
+        <span class="chapter__no">VI</span>
+        <div class="art" data-art="assets/img/ch6-babyls" data-title="Ch.VI — Babyls" data-desc="Lilith đứng trên bục giảng Babyls dạy tâm lý thực chiến, Mephisto dựa cửa lớp nhìn vào."></div>
+        <h3>Babyls</h3>
+        <p>Lilith nhận hợp đồng giảng dạy ở Babyls. Và tất nhiên, có ai đó luôn “tiện đường” ghé qua.</p>
+      </article>
+      <article class="chapter chapter--end">
+        <span class="chapter__no">?</span>
+        <div class="art" data-art="assets/img/ch7-future" data-title="Ch.VII — ???" data-desc="Chương tiếp theo — bạn quyết định. Gợi ý: lời tỏ tình dưới tuyết."></div>
+        <h3>To be continued…</h3>
+        <p>Chương tiếp theo vẫn đang được viết.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="gallery" id="gallery">
+  <header class="sec-head">
+    <p class="eyebrow">Tranh & khoảnh khắc</p>
+    <h2 class="sec-title split-chars">Gallery</h2>
+  </header>
+  <!-- ✎ Thêm tranh: copy 1 khối <figure> và đổi data-art -->
+  <div class="gallery__grid">
+    <figure class="gitem gitem--tall"><div class="art" data-art="assets/img/lilith-full" data-title="Lilith" data-desc=""></div><figcaption>Lilith · pixel ver.</figcaption></figure>
+    <figure class="gitem gitem--wide"><div class="art" data-art="assets/img/ch5-teatime" data-title="Tea time" data-desc=""></div><figcaption>Tea time · sketch</figcaption></figure>
+    <figure class="gitem gitem--tall"><div class="art" data-art="assets/img/mephisto-full" data-title="Mephisto" data-desc=""></div><figcaption>Mephisto · lễ hội</figcaption></figure>
+    <figure class="gitem"><div class="art" data-art="assets/img/g-snow" data-title="Ngày tuyết" data-desc="Lilith nghịch tuyết, Mephisto quàng khăn cho em."></div><figcaption>Ngày tuyết đầu mùa</figcaption></figure>
+    <figure class="gitem"><div class="art" data-art="assets/img/g-hug" data-title="ÔM" data-desc="Lilith ôm chầm Mephisto từ phía sau, mặt vùi vào lưng anh."></div><figcaption>ÔM.</figcaption></figure>
+    <figure class="gitem gitem--wide"><div class="art" data-art="assets/img/g-perfume" data-title="Bộ sưu tập nước hoa" data-desc="Mephisto tặng một lọ nước hoa, Lilith ngửi thử giữa kệ nước hoa của em."></div><figcaption>Mùi hương của anh</figcaption></figure>
+    <figure class="gitem"><div class="art" data-art="assets/img/g-mask" data-title="Mặt nạ" data-desc="Lilith cầm mặt nạ: một nửa lạnh lùng kiêu sa, một nửa phụng phịu trẻ con."></div><figcaption>Nhiều mặt nạ</figcaption></figure>
+    <figure class="gitem"><div class="art" data-art="assets/img/g-chibi" data-title="Chibi đời thường" data-desc="Chibi: Azel và Mephisto giành nhau ngồi cạnh Lilith."></div><figcaption>Cuộc chiến ghế ngồi</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ OUTRO ============ -->
+<section class="outro" id="outro">
+  <div class="outro__art art" data-art="assets/img/outro" data-bg data-title="Ending" data-desc="Hai bàn tay đan vào nhau, bướm xanh đậu lên. Tranh ngang, tông tối."></div>
+  <div class="outro__veil"></div>
+  <div class="outro__inner">
+    <svg class="outro__bfly"><use href="#bfly"/></svg>
+    <p class="outro__quote split-words">Giữa hàng ngàn lớp mặt nạ, chỉ có anh là người em không cần đeo.</p>
+    <p class="outro__sign">— Lilith Ravenna × Mephisto —</p>
+    <a href="#hero" class="btn btn--ghost magnetic" data-scroll data-cursor="↑"><span>Quay về đầu</span></a>
+  </div>
+  <footer class="foot">made with ♥ for my yumeship · art © owner</footer>
+</section>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" aria-label="Đóng">×</button>
+  <img alt="">
+  <p class="lightbox__cap"></p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
