@@ -90,6 +90,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 .nav__links a:hover,.nav__links a.is-active{color:#fff}
 .nav__links a:hover::after,.nav__links a.is-active::after{transform:scaleX(1);transform-origin:left}
 .nav__sound{display:flex;gap:3px;align-items:flex-end;height:16px;width:22px}
+.nav__sound[hidden]{display:none}
 .nav__sound i{flex:1;background:var(--sky);height:30%;transition:height .3s}
 .nav__sound.is-on i{animation:eq .9s ease-in-out infinite alternate}
 .nav__sound.is-on i:nth-child(2){animation-delay:.2s}.nav__sound.is-on i:nth-child(3){animation-delay:.4s}.nav__sound.is-on i:nth-child(4){animation-delay:.1s}
