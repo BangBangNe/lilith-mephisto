@@ -11,7 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/fx.css?v=3">
 </head>
 <body>
 
@@ -21,6 +22,10 @@
     <path d="M32 24 C24 4 6 0 3 8 C0 16 12 24 30 25 C14 28 6 38 12 44 C18 48 28 38 32 27 C36 38 46 48 52 44 C58 38 50 28 34 25 C52 24 64 16 61 8 C58 0 40 4 32 24Z"/>
     <path d="M31 14 Q32 10 33 14 L33 34 Q32 37 31 34Z" opacity=".6"/>
   </symbol>
+  <filter id="warp" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence id="warpTurb" type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap id="warpDisp" in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
   <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0 L13.6 10.4 L24 12 L13.6 13.6 L12 24 L10.4 13.6 L0 12 L10.4 10.4Z"/></symbol>
 </svg>
 
@@ -51,6 +56,7 @@
     <a href="#bond" data-scroll>Hai góc nhìn</a>
     <a href="#story" data-scroll>Cốt truyện</a>
     <a href="#gallery" data-scroll>Gallery</a>
+    <a href="#letter" data-scroll>Lá thư</a>
   </nav>
   <div class="nav__progress"><i id="progress"></i></div>
 </header>
@@ -135,6 +141,21 @@
     <div class="char__info">
       <p class="eyebrow">Ái nữ nhà Ravenna · em út</p>
       <h3 class="char__name">Lilith <span>Ravenna</span></h3>
+
+      <div class="masks" id="masks">
+        <p class="masks__label">Mặt nạ em đang đeo</p>
+        <div class="masks__stage"><span class="masks__word" id="maskWord">Kiêu sa</span></div>
+        <p class="masks__line" id="maskLine">Người ngoài thấy: một tiểu thư sang trọng, khó với tới.</p>
+        <button class="masks__btn magnetic" id="maskBtn" data-cursor="↻"><span>Đổi mặt nạ</span><i aria-hidden="true">↻</i></button>
+        <!-- ✎ Thêm/sửa mặt nạ: mỗi <li> là một mặt nạ, data-color là màu hào quang -->
+        <ul class="masks__list" hidden>
+          <li data-color="#d8b46a" data-line="Người ngoài thấy: một tiểu thư sang trọng, khó với tới.">Kiêu sa</li>
+          <li data-color="#8fd3ff" data-line="Người lạ thấy: một bức tường băng. Chớ lại gần.">Lạnh lùng</li>
+          <li data-color="#ff9ad5" data-line="Anh trai thấy: một con mèo nhỏ hỏi gì cũng “hửm?”.">Vô tri</li>
+          <li data-color="#ff7a8a" data-line="Mephisto thấy: nói không là không… trừ khi anh dỗ.">Bướng bỉnh</li>
+          <li data-color="#c9b8ff" data-line="Hiếm ai thấy: một cô gái nhạy cảm, nghĩ quá nhiều.">Mềm yếu</li>
+        </ul>
+      </div>
 
       <dl class="stats">
         <div><dt>Giới tính</dt><dd>Nữ</dd></div>
@@ -247,6 +268,7 @@
     <p class="eyebrow">Bloodline ability</p>
     <h2 class="ability__title glitch" data-text="Huyễn Tâm">Huyễn Tâm</h2>
     <p class="ability__en scramble" data-scramble="ILLUSORY · MIND">ILLUSORY · MIND</p>
+    <button class="activate magnetic" id="activate" data-cursor="◉"><span class="activate__eye" aria-hidden="true"></span><span>Kích hoạt Huyễn Tâm</span></button>
 
     <p class="ability__desc">Đánh mạnh về tâm lý. Bóp méo nhận thức của mục tiêu, thao túng giác quan dựa trên điểm yếu của chúng — ghét tiếng ồn? Âm thanh sẽ trở thành vũ khí. Chạm đến cả cảm xúc và ký ức ngắn hạn, cấy vào đó những <em>ký ức giả</em>.</p>
 
@@ -307,6 +329,25 @@
       <div class="love__item magnetic" data-cursor="♥"><b>Words</b><span>Những lời nói chỉ dành riêng cho nhau.</span></div>
     </div>
   </div>
+
+  <div class="hug">
+    <p class="eyebrow">Sở thích số một của em</p>
+    <h3 class="hug__title">ÔM</h3>
+    <button class="hug__btn" id="hugBtn" data-cursor="giữ">
+      <svg class="hug__ring" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54"/><circle class="hug__prog" cx="60" cy="60" r="54"/></svg>
+      <span class="hug__heart" aria-hidden="true">♥</span>
+      <span class="hug__label">Nhấn giữ để ôm</span>
+    </button>
+    <p class="hug__msg" id="hugMsg" aria-live="polite"></p>
+    <!-- ✎ Câu hiện ra sau khi ôm xong (chọn ngẫu nhiên) -->
+    <ul class="hug__list" hidden>
+      <li>Mephisto: “Ôm lâu thế, định không buông à?” · Lilith: “…ừ.”</li>
+      <li>Azel đã phát hiện. Azel không vui.</li>
+      <li>Năng lượng của Lilith đã được sạc đầy.</li>
+      <li>Mephisto: “Lại đây, anh cho ôm thêm.”</li>
+      <li>Lilith: “Năm phút nữa thôi.” (đã ba mươi phút)</li>
+    </ul>
+  </div>
 </section>
 
 <!-- ============ STORY (horizontal) ============ -->
@@ -324,42 +365,49 @@
         <div class="art" data-art="assets/img/ch1-neighbors" data-title="Ch.I — Hàng xóm" data-desc="Hai căn dinh thự cạnh nhau. Lilith bé xíu nấp sau Azel, nhìn qua hàng rào hoa thấy một cậu bé có sừng."></div>
         <h3>Hàng rào hoa</h3>
         <p>Hai gia đình ác ma sống cạnh nhau. Một cô bé nấp sau lưng anh trai, lần đầu nhìn thấy cậu bé nhà bên.</p>
+        <div class="chapter__more" hidden><p>Mùa xuân năm ấy, hàng rào hoa giữa hai dinh thự nở kín màu xanh. Lilith nắm chặt vạt áo anh trai, chỉ dám ló nửa khuôn mặt ra nhìn.</p><p>Cậu bé nhà bên cười với em trước. Em lập tức trốn lại sau lưng Azel.</p></div>
       </article>
       <article class="chapter">
         <span class="chapter__no">II</span>
         <div class="art" data-art="assets/img/ch2-azel" data-title="Ch.II — Bạn thân của anh trai" data-desc="Azel và Mephisto nhỏ quàng vai nhau cười, Lilith bám vạt áo anh trai."></div>
         <h3>Bạn thân của anh trai</h3>
         <p>Mephisto trở thành bạn thân chí cốt của Azel — và vì thế, ngày nào cũng có mặt bên cạnh em.</p>
+        <div class="chapter__more" hidden><p>Azel và Mephisto thân nhau nhanh đến mức người lớn cũng bất ngờ. Đi đâu cũng có nhau, và đi đâu cũng có thêm một cái đuôi nhỏ là Lilith.</p><p>Mephisto chưa bao giờ thấy phiền. Cậu còn là người luôn đi chậm lại để em theo kịp.</p></div>
       </article>
       <article class="chapter">
         <span class="chapter__no">III</span>
         <div class="art" data-art="assets/img/ch3-sworn" data-title="Ch.III — Anh trai kết nghĩa" data-desc="Mephisto cúi xuống xoa đầu Lilith; em ngẩng lên cười. Màu ấm, hoài niệm."></div>
         <h3>Anh trai kết nghĩa</h3>
         <p>“Từ giờ anh cũng là anh trai của em.” Một lời hứa ngây thơ mà về sau anh hối hận nhất.</p>
+        <div class="chapter__more" hidden><p>“Từ giờ anh cũng là anh trai của em.” Mephisto nói vậy vào một ngày em khóc vì ngã. Lilith gật đầu, nước mắt còn chưa khô.</p><p>Lời hứa ấy em giữ suốt nhiều năm. Người không giữ được, lại là anh.</p></div>
       </article>
       <article class="chapter">
         <span class="chapter__no">IV</span>
         <div class="art" data-art="assets/img/ch4-realize" data-title="Ch.IV — Nhận ra" data-desc="Mephisto đã lớn, đứng ngoài vườn kính nhìn Lilith ngủ quên giữa hoa. Ánh trăng xanh."></div>
         <h3>Nhận ra</h3>
         <p>Đến một ngày, anh nhận ra thứ tình cảm ấy chưa bao giờ là tình anh em.</p>
+        <div class="chapter__more" hidden><p>Lilith lớn lên, học cách đeo mặt nạ trước cả thế giới. Chỉ trong khu vườn kính, em mới ngủ quên như hồi còn bé.</p><p>Mephisto đứng bên ngoài lớp kính rất lâu. Đến lúc ấy anh mới hiểu, thứ anh muốn giữ chưa bao giờ là một đứa em gái.</p></div>
       </article>
       <article class="chapter">
         <span class="chapter__no">V</span>
         <div class="art" data-art="assets/img/ch5-teatime" data-title="Ch.V — Tea time" data-desc="Tiệc trà trong vườn."></div>
         <h3>Mảnh ghép</h3>
         <p>Những buổi trà chiều, những lần ghé qua “tình cờ”. Anh len lỏi vào từng ngóc ngách cuộc sống của em.</p>
+        <div class="chapter__more" hidden><p>Những lần ghé qua “tình cờ” nhiều dần lên. Một hộp bánh, một lọ nước hoa em thích, một buổi trà chiều không ai mời.</p><p>Lilith không hỏi vì sao. Em chỉ lặng lẽ chuẩn bị thêm một tách trà.</p></div>
       </article>
       <article class="chapter">
         <span class="chapter__no">VI</span>
         <div class="art" data-art="assets/img/ch6-babyls" data-title="Ch.VI — Babyls" data-desc="Lilith đứng trên bục giảng Babyls dạy tâm lý thực chiến, Mephisto dựa cửa lớp nhìn vào."></div>
         <h3>Babyls</h3>
         <p>Lilith nhận hợp đồng giảng dạy ở Babyls. Và tất nhiên, có ai đó luôn “tiện đường” ghé qua.</p>
+        <div class="chapter__more" hidden><p>Học sinh Babyls sợ em ngay từ buổi đầu, cho đến khi thấy em ngồi ngắm côn trùng trong giờ nghỉ.</p><p>Còn Mephisto thì lần nào cũng “tiện đường” ghé qua, đứng dựa cửa lớp đúng lúc tan học.</p></div>
       </article>
       <article class="chapter chapter--end">
         <span class="chapter__no">?</span>
         <div class="art" data-art="assets/img/ch7-future" data-title="Ch.VII — ???" data-desc="Chương tiếp theo — bạn quyết định. Gợi ý: lời tỏ tình dưới tuyết."></div>
         <h3>To be continued…</h3>
         <p>Chương tiếp theo vẫn đang được viết.</p>
+        <div class="chapter__more" hidden><p>Có thể là một ngày tuyết rơi, có thể là một lời thú nhận, cũng có thể là ngày Azel cuối cùng cũng phát hiện ra.</p><p>Bạn sẽ là người viết tiếp.</p></div>
       </article>
     </div>
   </div>
@@ -384,6 +432,32 @@
   </div>
 </section>
 
+<!-- ============ LETTER ============ -->
+<section class="letter" id="letter">
+  <header class="sec-head">
+    <p class="eyebrow">Một lá thư chưa gửi</p>
+    <h2 class="sec-title split-chars">Letter</h2>
+  </header>
+  <div class="envelope" id="envelope">
+    <div class="envelope__back"></div>
+    <div class="paper" id="paper">
+      <div class="paper__content" id="paperContent">
+        <!-- ✎ Sửa nội dung thư ở đây -->
+        <p class="paper__to">Gửi em, cô bé nhà bên,</p>
+        <p>Anh từng hứa sẽ làm anh trai của em. Đó là lời hứa duy nhất anh không giữ được.</p>
+        <p>Không phải vì anh hết thương em. Chỉ là anh đã thương em theo một cách khác mất rồi.</p>
+        <p>Em không cần tháo mặt nạ trước cả thế giới. Chỉ cần trước anh thôi.</p>
+        <p class="paper__sign">M.</p>
+      </div>
+      <button class="paper__close" id="envClose">Gấp thư lại</button>
+    </div>
+    <div class="envelope__front"></div>
+    <div class="envelope__flap"></div>
+    <button class="envelope__seal" id="envOpen" data-cursor="Mở" aria-label="Mở thư"><svg aria-hidden="true"><use href="#bfly"/></svg></button>
+  </div>
+  <p class="letter__hint">nhấn vào con dấu để mở thư</p>
+</section>
+
 <!-- ============ OUTRO ============ -->
 <section class="outro" id="outro">
   <div class="outro__art art" data-art="assets/img/outro" data-bg data-title="Ending" data-desc="Hai bàn tay đan vào nhau, bướm xanh đậu lên. Tranh ngang, tông tối."></div>
@@ -399,6 +473,31 @@
 
 </main>
 
+<!-- MIND FX (Huyễn Tâm) -->
+<div class="mindfx" id="mindfx" aria-hidden="true">
+  <div class="mindfx__iris"><span></span></div>
+  <p class="mindfx__text">Đừng tin vào mắt mình.</p>
+</div>
+
+<!-- CHAPTER READER -->
+<div class="reader" id="reader" aria-hidden="true">
+  <button class="reader__close" id="readerClose" aria-label="Đóng">×</button>
+  <div class="reader__inner" id="readerInner">
+    <span class="reader__no" id="readerNo"></span>
+    <div class="reader__art" id="readerArt"></div>
+    <div class="reader__body">
+      <p class="eyebrow" id="readerEyebrow"></p>
+      <h3 class="reader__title" id="readerTitle"></h3>
+      <div class="reader__text" id="readerText"></div>
+    </div>
+  </div>
+  <div class="reader__nav">
+    <button id="readerPrev">← Chương trước</button>
+    <span id="readerCount"></span>
+    <button id="readerNext">Chương sau →</button>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" aria-label="Đóng">×</button>
@@ -409,6 +508,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="js/main.js"></script>
+<script src="js/main.js?v=3"></script>
+<script src="js/fx.js?v=3"></script>
 </body>
 </html>

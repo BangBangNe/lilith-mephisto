@@ -296,8 +296,8 @@
     atl.from('.ability__title', { scale: 1.6, opacity: 0, filter: 'blur(20px)', letterSpacing: '.3em', duration: 1.6, ease: 'expo.out' })
       .add(() => scramble($('.ability__en')), '-=1')
       .from('.ability__desc', { opacity: 0, y: 30, duration: 1 }, '-=.8')
-      .from('.astep', { y: 50, opacity: 0, rotateX: -30, stagger: .15, duration: 1, ease: 'power3.out' }, '-=.6')
-      .from('.icard', { y: 60, opacity: 0, rotateY: -60, stagger: .1, duration: 1.1, ease: 'expo.out' }, '-=.4');
+      .from('.astep', { y: 50, opacity: 0, rotateX: -30, stagger: .15, duration: 1, ease: 'power3.out', clearProps: 'transform,opacity' }, '-=.6')
+      .from('.icard', { y: 60, opacity: 0, rotateY: -60, stagger: .1, duration: 1.1, ease: 'expo.out', clearProps: 'transform,opacity' }, '-=.4');
     gsap.fromTo('.ability__art', { scale: 1.25 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.ability', scrub: true } });
 
     // bond
@@ -392,6 +392,7 @@
   });
 
   $$('.icard').forEach(c => c.addEventListener('click', e => {
+    if (hasGSAP) { gsap.killTweensOf(c); gsap.set(c, { clearProps: 'transform,opacity' }); }
     c.classList.toggle('is-flipped');
     if (c.classList.contains('is-flipped') && c.dataset.truth === 'fake' && hasGSAP && !REDUCED) {
       gsap.fromTo('.ability__inner', { x: -8, filter: 'hue-rotate(90deg) blur(2px)' }, { x: 0, filter: 'hue-rotate(0deg) blur(0px)', duration: .6, ease: 'elastic.out(1,.3)', clearProps: 'filter' });
@@ -401,7 +402,7 @@
 
   const lb = $('#lightbox'), lbImg = $('img', lb), lbCap = $('.lightbox__cap', lb);
   document.addEventListener('click', e => {
-    const a = e.target.closest('.art.has-art:not([data-bg])'); if (!a || a.closest('.hero')) return;
+    const a = e.target.closest('.art.has-art:not([data-bg])'); if (!a || a.closest('.hero, .chapter, .reader')) return;
     const img = a.querySelector('img'); lbImg.src = img.src;
     lbCap.textContent = a.closest('figure')?.querySelector('figcaption')?.textContent || a.dataset.title || '';
     lb.classList.add('is-open'); lb.setAttribute('aria-hidden', 'false'); lenis && lenis.stop();
@@ -457,5 +458,6 @@
      GO
      --------------------------------------------------------- */
   Promise.allSettled(artPromises).then(() => { setupScroll(); hasGSAP && ScrollTrigger.refresh(); });
+  window.YM = { spawnButterfly, scramble, lenis, REDUCED, FINE, hasGSAP };
   runLoader();
 })();
