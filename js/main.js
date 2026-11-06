@@ -416,6 +416,7 @@
      --------------------------------------------------------- */
   const music = $('#music'), mBtn = $('#musicBtn'), mState = $('#musicState'), mHint = $('#musicHint');
   const VID = music.dataset.video, ARTIST = music.dataset.artist;
+  mBtn.querySelector('b').textContent = music.dataset.title;
   let player = null, ytReady = false, wantPlay = false;
   const setState = playing => {
     music.classList.toggle('is-playing', playing);
