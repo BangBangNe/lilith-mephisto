@@ -410,12 +410,49 @@
   lb.addEventListener('click', e => { if (e.target !== lbImg) closeLb(); });
   addEventListener('keydown', e => e.key === 'Escape' && closeLb());
 
-  // Nhạc nền: thả file assets/audio/bgm.mp3 là nút nhạc tự hiện
-  const audio = new Audio('assets/audio/bgm.mp3'); audio.loop = true; audio.volume = .35;
-  audio.addEventListener('canplaythrough', () => { $('#soundBtn').hidden = false; }, { once: true });
-  $('#soundBtn').addEventListener('click', function () {
-    if (audio.paused) { audio.play(); this.classList.add('is-on'); } else { audio.pause(); this.classList.remove('is-on'); }
+  /* ---------------------------------------------------------
+     MUSIC — phát qua trình phát YouTube chính thức
+     (nút chỉ hiện khi YouTube tải được)
+     --------------------------------------------------------- */
+  const music = $('#music'), mBtn = $('#musicBtn'), mState = $('#musicState'), mHint = $('#musicHint');
+  const VID = music.dataset.video, ARTIST = music.dataset.artist;
+  let player = null, ytReady = false, wantPlay = false;
+  const setState = playing => {
+    music.classList.toggle('is-playing', playing);
+    mBtn.setAttribute('aria-pressed', playing);
+    mState.textContent = playing ? `${ARTIST} · đang phát` : `${ARTIST} · bấm để nghe`;
+  };
+  window.onYouTubeIframeAPIReady = () => {
+    ytReady = true; music.hidden = false;
+    if (hasGSAP && !REDUCED) gsap.from(music, { y: 80, opacity: 0, duration: 1.2, delay: .4, ease: 'expo.out' });
+    setTimeout(() => { if (!music.classList.contains('was-used')) { mHint.classList.add('is-show'); setTimeout(() => mHint.classList.remove('is-show'), 7000); } }, 3500);
+  };
+  const yt = document.createElement('script'); yt.src = 'https://www.youtube.com/iframe_api'; yt.async = true;
+  document.head.appendChild(yt);
+
+  function createPlayer() {
+    player = new YT.Player('ytPlayer', {
+      width: 228, height: 200, videoId: VID,
+      playerVars: { autoplay: 1, loop: 1, playlist: VID, playsinline: 1, rel: 0, modestbranding: 1 },
+      events: {
+        onReady: e => { e.target.setVolume(45); if (wantPlay) e.target.playVideo(); },
+        onStateChange: e => {
+          const playing = e.data === YT.PlayerState.PLAYING;
+          setState(playing);
+          if (playing) music.classList.add('is-open');
+        }
+      }
+    });
+  }
+  mBtn.addEventListener('click', () => {
+    if (!ytReady) return;
+    music.classList.add('was-used'); mHint.classList.remove('is-show');
+    if (!player) { wantPlay = true; music.classList.add('is-open'); createPlayer(); return; }
+    const st = player.getPlayerState?.();
+    if (st === YT.PlayerState.PLAYING) { player.pauseVideo(); music.classList.remove('is-open'); }
+    else { music.classList.add('is-open'); player.playVideo(); }
   });
+  $('#musicClose').addEventListener('click', () => { player?.pauseVideo?.(); music.classList.remove('is-open'); setState(false); });
 
   /* ---------------------------------------------------------
      GO

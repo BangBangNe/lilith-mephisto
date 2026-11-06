@@ -52,9 +52,26 @@
     <a href="#story" data-scroll>Cốt truyện</a>
     <a href="#gallery" data-scroll>Gallery</a>
   </nav>
-  <button class="nav__sound" id="soundBtn" hidden aria-label="Bật/tắt nhạc"><i></i><i></i><i></i><i></i></button>
   <div class="nav__progress"><i id="progress"></i></div>
 </header>
+
+<!-- ============ MUSIC (YouTube) ============ -->
+<!-- ✎ Đổi bài: sửa data-video (ID video YouTube), data-title, data-artist -->
+<div class="music" id="music" data-video="nyuo9-OjNNg" data-title="I Wanna Be Yours" data-artist="Arctic Monkeys" hidden>
+  <div class="music__panel" id="musicPanel">
+    <div class="music__head">
+      <span>Đang phát</span>
+      <button class="music__close" id="musicClose" aria-label="Tắt nhạc">×</button>
+    </div>
+    <div class="music__player"><div id="ytPlayer"></div></div>
+  </div>
+  <p class="music__hint" id="musicHint">♪ Bật nhạc để nghe cùng câu chuyện</p>
+  <button class="music__btn" id="musicBtn" aria-pressed="false" data-cursor="♪">
+    <span class="music__disc" aria-hidden="true"></span>
+    <span class="music__text"><b>I Wanna Be Yours</b><small id="musicState">Arctic Monkeys · bấm để nghe</small></span>
+    <span class="music__eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </button>
+</div>
 
 <main id="smooth">
 

@@ -35,7 +35,7 @@ Chỉ cần **thả file vào `assets/img/` đúng tên** bên dưới là web t
 | `og-cover` | Ảnh preview khi share link | Ảnh bìa | 1200×630 |
 
 ## Nhạc nền
-Thả `assets/audio/bgm.mp3` vào là nút nhạc (góc phải trên) tự hiện.
+Nhạc phát qua trình phát YouTube (nút đĩa nhạc góc phải dưới). Đổi bài: trong `index.html` tìm `data-video=` và thay bằng ID video YouTube mới (phần sau `youtu.be/`), sửa luôn `data-title` và `data-artist`.
 
 ## Sửa chữ
 Mọi nội dung nằm trong `index.html`. Những chỗ có `✎` là chỗ nên sửa/thêm.
