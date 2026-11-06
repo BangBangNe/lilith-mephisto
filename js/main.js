@@ -424,7 +424,7 @@
     mState.textContent = playing ? `${ARTIST} · đang phát` : `${ARTIST} · bấm để nghe`;
   };
   window.onYouTubeIframeAPIReady = () => {
-    ytReady = true; music.hidden = false;
+    ytReady = true; music.hidden = false; createPlayer();
     if (hasGSAP && !REDUCED) gsap.from(music, { y: 80, opacity: 0, duration: 1.2, delay: .4, ease: 'expo.out' });
     setTimeout(() => { if (!music.classList.contains('was-used')) { mHint.classList.add('is-show'); setTimeout(() => mHint.classList.remove('is-show'), 7000); } }, 3500);
   };
@@ -434,13 +434,12 @@
   function createPlayer() {
     player = new YT.Player('ytPlayer', {
       width: 228, height: 200, videoId: VID,
-      playerVars: { autoplay: 1, loop: 1, playlist: VID, playsinline: 1, rel: 0, modestbranding: 1 },
+      playerVars: { autoplay: 0, loop: 1, playlist: VID, playsinline: 1, rel: 0, modestbranding: 1 },
       events: {
         onReady: e => { e.target.setVolume(45); if (wantPlay) e.target.playVideo(); },
         onStateChange: e => {
           const playing = e.data === YT.PlayerState.PLAYING;
           setState(playing);
-          if (playing) music.classList.add('is-open');
         }
       }
     });
@@ -448,12 +447,11 @@
   mBtn.addEventListener('click', () => {
     if (!ytReady) return;
     music.classList.add('was-used'); mHint.classList.remove('is-show');
-    if (!player) { wantPlay = true; music.classList.add('is-open'); createPlayer(); return; }
-    const st = player.getPlayerState?.();
-    if (st === YT.PlayerState.PLAYING) { player.pauseVideo(); music.classList.remove('is-open'); }
-    else { music.classList.add('is-open'); player.playVideo(); }
+    if (!player || !player.playVideo) { wantPlay = !wantPlay; setState(wantPlay); return; } // chưa tải xong
+    const st = player.getPlayerState();
+    if (st === YT.PlayerState.PLAYING || st === YT.PlayerState.BUFFERING) { player.pauseVideo(); setState(false); }
+    else { player.playVideo(); setState(true); }
   });
-  $('#musicClose').addEventListener('click', () => { player?.pauseVideo?.(); music.classList.remove('is-open'); setState(false); });
 
   /* ---------------------------------------------------------
      GO
